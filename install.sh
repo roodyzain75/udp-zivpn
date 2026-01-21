@@ -17,3 +17,8 @@ systemctl enable udp-zivpn udp-bot
 systemctl start udp-zivpn udp-bot
 
 echo "UDP ZIVPN PRO++ LEVEL 3 AKTIF"
+if [[ "$LICENSE_KEY" != "ZIVPN-ROODY-2026" ]]; then
+  echo "LICENSE INVALID"
+  exit 1
+fi
+
