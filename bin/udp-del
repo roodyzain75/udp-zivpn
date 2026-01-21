@@ -1,0 +1,21 @@
+#!/bin/bash
+
+DB="/etc/udp-zivpn/users.db"
+
+if [ ! -f "$DB" ]; then
+  echo "Database user tidak ditemukan"
+  exit 1
+fi
+
+read -p "Masukkan username yang akan dihapus: " USER
+
+if ! grep -qw "^$USER" "$DB"; then
+  echo "User tidak ditemukan"
+  exit 1
+fi
+
+# hapus user
+sed -i "/^$USER /d" "$DB"
+
+echo "User '$USER' berhasil dihapus"
+
