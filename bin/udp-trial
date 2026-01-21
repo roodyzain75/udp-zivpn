@@ -1,0 +1,35 @@
+#!/bin/bash
+
+DB="/etc/udp-zivpn/users.db"
+CONF="/etc/udp-zivpn/config.conf"
+
+# default jika config belum ada
+TRIAL_MINUTES=30
+MAX_DEVICE=1
+
+[ -f "$CONF" ] && source "$CONF"
+
+mkdir -p /etc/udp-zivpn
+touch "$DB"
+
+USER="trial$(date +%H%M%S)"
+EXPIRED=$(date -d "+${TRIAL_MINUTES} minutes" +"%Y-%m-%d %H:%M")
+USED=0
+MAX=$MAX_DEVICE
+
+# pastikan user belum ada
+if grep -qw "^$USER" "$DB"; then
+  echo "Trial gagal, ulangi"
+  exit 1
+fi
+
+echo "$USER $EXPIRED $USED $MAX" >> "$DB"
+
+echo "==============================="
+echo " TRIAL UDP ZIVPN AKTIF "
+echo "==============================="
+echo "Username : $USER"
+echo "Expired  : $EXPIRED"
+echo "Max Dev  : $MAX"
+echo "==============================="
+
