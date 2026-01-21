@@ -1,0 +1,22 @@
+#!/bin/bash
+
+DB="/etc/udp-zivpn/users.db"
+
+if [ ! -f "$DB" ]; then
+  echo "Belum ada user UDP"
+  exit 0
+fi
+
+echo "=================================="
+echo "        DAFTAR USER UDP ZIVPN      "
+echo "=================================="
+printf "%-15s %-12s %-6s %-6s\n" "USERNAME" "EXPIRED" "USED" "MAX"
+echo "----------------------------------"
+
+while read -r user exp used max; do
+  printf "%-15s %-12s %-6s %-6s\n" "$user" "$exp" "${used:-0}" "${max:-0}"
+done < "$DB"
+
+echo "----------------------------------"
+echo "Total user: $(wc -l < "$DB")"
+
