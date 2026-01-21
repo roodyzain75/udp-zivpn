@@ -1,0 +1,8 @@
+#!/bin/bash
+. /etc/udp-zivpn/config.conf
+read -p "Username: " u
+read -p "Expired (hari): " d
+exp=$(date -d "$d days" +%F)
+echo "$u $exp 0 $MAX_DEVICE" >> /etc/udp-zivpn/users.db
+echo "User $u dibuat (max device $MAX_DEVICE)"
+
