@@ -1,0 +1,10 @@
+#!/bin/bash
+DB="/etc/udp-zivpn/users.db"
+
+while read user exp max; do
+  ip_count=$(conntrack -L | grep "$user" | awk '{print $5}' | sort -u | wc -l)
+  if [[ $ip_count -gt $max ]]; then
+    iptables -A INPUT -m string --string "$user" --algo bm -j DROP
+  fi
+done < $DB
+
