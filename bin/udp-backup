@@ -1,0 +1,4 @@
+#!/bin/bash
+mkdir -p /etc/udp-zivpn/backup
+cp /etc/udp-zivpn/users.db /etc/udp-zivpn/backup/users-$(date +%F-%H%M).db
+
