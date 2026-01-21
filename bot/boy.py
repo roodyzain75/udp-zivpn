@@ -17,3 +17,17 @@ def p(m):
 
 b.infinity_polling()
 
+from telebot import types
+
+def menu(chat_id):
+    kb = types.InlineKeyboardMarkup()
+    kb.add(
+        types.InlineKeyboardButton("➕ Add User", callback_data="add"),
+        types.InlineKeyboardButton("⏳ Trial", callback_data="trial")
+    )
+    kb.add(
+        types.InlineKeyboardButton("📋 List", callback_data="list"),
+        types.InlineKeyboardButton("♻ Renew", callback_data="renew")
+    )
+    bot.send_message(chat_id, "UDP ZIVPN PRO++ MENU", reply_markup=kb)
+    
