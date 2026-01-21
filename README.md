@@ -2,7 +2,10 @@
 Jalankan perintah berikut di VPS (Ubuntu/Debian):
 
 ```bash
-wget -O install.sh https://raw.githubusercontent.com/roodyzain99/udp-zivpn/main/install.sh
+wget -O install.sh https://raw.githubusercontent.com/roodyzain75/udp-zivpn/main/install.sh
+
+
+
 chmod +x install.sh
 
 
