@@ -1,0 +1,27 @@
+#!/bin/bash
+
+DB="/etc/udp-zivpn/users.db"
+
+# jika DB belum ada
+[ ! -f "$DB" ] && exit 0
+
+NOW=$(date +%s)
+
+TMP=$(mktemp)
+
+while read -r user exp used max; do
+  # convert expired ke timestamp
+  exp_ts=$(date -d "$exp" +%s 2>/dev/null)
+
+  # jika format tanggal salah, skip
+  [ -z "$exp_ts" ] && continue
+
+  # simpan user yang belum expired
+  if [ "$exp_ts" -gt "$NOW" ]; then
+    echo "$user $exp $used $max" >> "$TMP"
+  fi
+done < "$DB"
+
+# replace DB
+mv "$TMP" "$DB"
+
